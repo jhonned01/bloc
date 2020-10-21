@@ -1,39 +1,28 @@
 import React,{useState,useEffect} from 'react'
+import {connect} from 'react-redux'
 import '../App.css'
+import * as usuariosActions from '../../actions/usuariosActions'
 
-const Usuarios=()=>{
-    const [usuarios,setUsuario]=useState([])
-    const [error,setError]=useState(false)
-    const [isLoaded,setIsLoaded]=useState(true)
+const Usuarios=(props)=>{
+   
+ 
     
-   async function DataConection(event) {
-    await fetch('https://jsonplaceholder.typicode.com/users')
-    .then(res => res.json())
-    .then(
-        (result)=> {
-            setUsuario(result)
-            setIsLoaded(false)
-        },
-        (err)=>{
-            setIsLoaded(false)
-            setError(err)
-        }
-    )
-    
-    }
     
     useEffect(()=>{
-        DataConection()
+    
+        props.traerTodos()
     },[])
-    console.log(usuarios);
+    // console.log(usuarios);
 
     
-
-    if (error) {
+    console.log(`esto es un props:${props.error}`);
+    
+    if (props.error) {
         return(
-        <div>Error:{error.message}</div>
+        <div>Error:{props.error.message}</div>
         )
-    }else if (isLoaded) {
+        
+    }else if (props.isLoaded) {
         return(
             <div>Loading ...</div>
         )
@@ -55,7 +44,7 @@ const Usuarios=()=>{
                        
     
                             {
-                            usuarios.map(item => (
+                            props.usuarios.map(item => (
                                  <tr key={item.id}>
                                     <td >
                                         {item.name}  
@@ -79,8 +68,11 @@ const Usuarios=()=>{
             
           );
     
-    }
-       
-    }
+        }
+     }
 
-export default Usuarios;
+const mapStateToProps=(reducers)=>{
+return reducers.usuariosReducer;
+}
+
+export default connect(mapStateToProps,usuariosActions)(Usuarios);

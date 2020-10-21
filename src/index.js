@@ -1,19 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './component/App.jsx';
-import { createStore } from 'redux'
+import { createStore,applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
+import reduxThunk from 'redux-thunk'
+// reducers
 import reducers from './reducers'
 
 const store= createStore(
   reducers, // todos los reduces
-  {} //todos los estados
+  {}, //todos los estados
+  applyMiddleware(reduxThunk) 
   )
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
+ 
   document.getElementById('root')
 );
 
