@@ -4,6 +4,7 @@ import Usuarios from './usuarios/Usuarios.jsx'
 // import Tareas from './usuarios/Tareas.jsx'
 import './App.css'
 import Menu from './Menu.jsx'
+import Publicaciones from '../publicaciones/Publicaciones.jsx'
 
 const Tareas=()=>{
     return(
@@ -20,6 +21,7 @@ return(
             <div className="margin"> 
                 <Route exact path='/' component={Usuarios} />
                 <Route exact path='/tareas' component={Tareas}/>
+                <Route exact path='/publicaciones/:key' component={Publicaciones}/>
             </div>
           </BrowserRouter>
 )

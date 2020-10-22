@@ -1,6 +1,8 @@
 import React from 'react'
 import '../App.css'
 import {connect} from 'react-redux'
+// import '../../iconos/iconos.css'
+import {Link} from 'react-router-dom'
 
 import * as usuariosActions from '../../actions/usuariosActions'
 
@@ -34,10 +36,11 @@ const TableUsuario=(props)=>{
                                         {item.website}
                                 
                                     </td>
-                                    {/* <td>
-                                        {   }
-                                
-                                    </td> */}
+                                    <td>
+                                        <Link to={`/publicaciones/${key}`}>
+                                        <div className="eye-solid icon"></div>
+                                        </Link>
+                                    </td>
                                 </tr>
                             ))}
                             

@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import reduxThunk from 'redux-thunk'
 // reducers
 import reducers from './reducers'
+import './iconos/iconos.css'
 
 const store= createStore(
   reducers, // todos los reduces
