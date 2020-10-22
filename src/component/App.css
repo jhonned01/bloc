@@ -24,3 +24,11 @@
 body{
   margin: 0;
 }
+
+.center{
+  text-align: center;
+}
+
+.color__red{
+  color: red;
+}

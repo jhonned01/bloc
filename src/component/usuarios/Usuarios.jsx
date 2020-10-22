@@ -1,75 +1,47 @@
-import React,{useState,useEffect} from 'react'
+import React,{useEffect} from 'react'
 import {connect} from 'react-redux'
 import '../App.css'
 import * as usuariosActions from '../../actions/usuariosActions'
+import Loading from '../Loading/Loading.jsx'
+import Fatal from '../../component/Error/Fatal.jsx'
+import TableUsuarios from './TableUsuario.jsx'
 
 const Usuarios=(props)=>{
    
- 
-    
+    const ejecutarTraerUsuarios=()=>props.traerTodos()
     
     useEffect(()=>{
     
-        props.traerTodos()
+        // props.traerTodos()
+        ejecutarTraerUsuarios()
     },[])
     // console.log(usuarios);
+    console.log(`cantidad de usuarios:${props.usuarios.length}`);
 
     
-    console.log(`esto es un props:${props.error}`);
+    console.log(`esto es un props de error:${props.error}`);
     
     if (props.error) {
         return(
-        <div>Error:{props.error.message}</div>
+        <Fatal mensaje={props.error}/>
         )
         
-    }else if (props.isLoaded) {
+    }else if (!props.isLoaded) {
         return(
-            <div>Loading ...</div>
+        
+            <Loading/>
+        
         )
     }
-    else{
+    else if(!props.error && props.isLoaded && props.usuarios.length>1){
      return (
-          
-            <div className="margin">
-                  {/* <button onClick={()=>DataConection()}>Load More</button> */}
-                <table className="table">
-                    <thead className="">
-                        <tr>
-                            <th>nombre</th>
-                            <th>correo</th>
-                            <th>Enlace</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                       
-    
-                            {
-                            props.usuarios.map(item => (
-                                 <tr key={item.id}>
-                                    <td >
-                                        {item.name}  
-                                    </td>
-                                    <td>
-                                         {item.email}
-                                
-                                    </td>
-                                     <td>
-                                        {item.website}
-                                
-                                    </td>
-                                </tr>
-                            ))}
-                            
-                            
-                        
-                    </tbody>
-                </table>
-            </div>
+          <TableUsuarios />
+            
             
           );
     
         }
-     }
+    }
 
 const mapStateToProps=(reducers)=>{
 return reducers.usuariosReducer;
