@@ -1,11 +1,11 @@
-import {TraerUsuarios,AmenoDorime} from '../types/usuariosTypes'
+import {TraerUsuarios,AmenoDorime} from '../types/usuariosTypes.js'
 
 export const traerTodos=()=> async(dispatch)=> {
     
    try {
-    let res = await fetch('https://jsonplaceholder.typicode.com/users')
-    let  data = await res.json()
-    console.log(`est es un status${res.status} ${res.ok}`);
+    const res = await fetch('https://jsonplaceholder.typicode.com/users')
+    const  data = await res.json()
+    // console.log(`est es un status${res.status} ${res.ok}`);
           if (res.status === 200 && res.ok===true ) {
             dispatch({
                 type:'TraerUsuarios',

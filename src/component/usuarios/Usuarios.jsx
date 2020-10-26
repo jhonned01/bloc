@@ -11,15 +11,19 @@ const Usuarios=(props)=>{
     const ejecutarTraerUsuarios=()=>props.traerTodos()
     
     useEffect(()=>{
-    
-        // props.traerTodos()
-        ejecutarTraerUsuarios()
+
+        if (!props.usuarios.length) {
+            ejecutarTraerUsuarios();
+            console.log(`no tengo usuarios:${props.usuarios.length}`);
+		} 
+                 
+        
     },[])
     // console.log(usuarios);
-    console.log(`cantidad de usuarios:${props.usuarios.length}`);
+    console.log(`cantidad de usuarios:${props}`);
 
     
-    console.log(`esto es un props de error:${props.error}`);
+ 
     
     if (props.error) {
         return(
