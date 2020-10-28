@@ -2,6 +2,7 @@ import React,{useEffect} from 'react'
 import { connect } from 'react-redux'
 import Loading from '../component/Loading/Loading.jsx'
 import Fatal from '../component/Error/Fatal.jsx'
+import ShowPublicaciones from './ShowPublicaciones.jsx'
 
 import *as usuariosActions from '../actions/usuariosActions'
 import *as publicacionesActions from '../actions/publiacionesActions'
@@ -36,11 +37,7 @@ function Publicaciones(props) {
     },[])
    
     console.log(props);
-    const ponerUsuario=()=>{
-        
-    }
-
-
+  
     if (props.usuariosReducer.error) {
         return(
         <Fatal mensaje={props.usuariosReducer.error}/>
@@ -54,10 +51,13 @@ function Publicaciones(props) {
     else if(!props.usuariosReducer.error && props.usuariosReducer.isLoaded && props.usuariosReducer.usuarios.length>1){
         return(
         
-            <div>
-                <h1>Publicaciones de {props.usuariosReducer.usuarios.name}</h1>
-                {props.match.params.key}
-            </div>
+            // <div>
+            //     <h1>Publicaciones de {props.usuariosReducer.usuarios[props.match.params.key].name}</h1>
+            //     {props.match.params.key}
+
+            //     <ShowPublicaciones/>
+            // </div>
+            <ShowPublicaciones />
             )    
         }
     
