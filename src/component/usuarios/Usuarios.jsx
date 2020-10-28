@@ -8,19 +8,27 @@ import TableUsuarios from './TableUsuario.jsx'
 
 const Usuarios=(props)=>{
    
-    const ejecutarTraerUsuarios=()=>props.traerTodos()
+   
+
+    const validacionUsuarios=async()=>{
+        if (!props.usuarios.length) {
+            await props.traerTodos()
+            console.log('no existian los usuarios');
+        }
+
+    }
+  
     
     useEffect(()=>{
-
-        if (!props.usuarios.length) {
-            ejecutarTraerUsuarios();
-            console.log(`no tengo usuarios:${props.usuarios.length}`);
-		} 
+        validacionUsuarios()
+        // ejecutarTraerUsuarios()
+        
                  
         
     },[])
+    console.log(`Estado del Loading:${props.isLoaded}`);
     // console.log(usuarios);
-    console.log(`cantidad de usuarios:${props}`);
+    console.log(`cantidad de usuarios:${props.usuarios.length}`);
 
     
  

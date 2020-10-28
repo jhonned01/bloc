@@ -1,27 +1,45 @@
 import React,{useEffect} from 'react'
 import { connect } from 'react-redux'
+import Cargando from '../component/Loading/Loading.jsx'
+import Fatal from '../component/Error/Fatal.jsx'
 
 import *as usuariosActions from '../actions/usuariosActions'
 import *as publicacionesActions from '../actions/publiacionesActions'
 
 function Publicaciones(props) {
 
-    useEffect(()=>{
-       const acciones= async()=>{
-         if (!props.usuariosReducer.usuarios.length) {
-            await props.traerTodos()
-            console.log('no existian los usuarios');
-        }
-        if(!props.publicacionesReducer.length){
-            await props.getUsuarioPublicaciones(props.match.params.key)
-            console.log('no existian publicaciones');
-        }
+    const acciones= async()=>{
+        if (!props.usuariosReducer.usuarios.length) {
+           await props.traerTodos()
+     
+           console.log(`no existian los usuarios:`);
+       }
+    
+     console.log(`estado de publiaciones reducer ${props.publicacionesReducer.publicaciones.length}`);
+       if(!props.publicacionesReducer.publicaciones.length){
+       await props.getUsuarioPublicaciones(props.match.params.key)
        
+    }else if (!('publicaciones_key' in props.usuariosReducer.usuarios[props.match.params.key])){
+       
+        await props.getUsuarioPublicaciones(props.match.params.key)
+        console.log('no existian publicaciones');
+    
+    
+        
     }
+      
+   }    
+    useEffect(()=>{
+        
     acciones()
     },[])
-    
+   
     console.log(props);
+    const ponerUsuario=()=>{
+        
+    }
+
+
     return(
         
     <div>

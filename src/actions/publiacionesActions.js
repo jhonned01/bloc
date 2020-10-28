@@ -1,7 +1,7 @@
-import {AmenoDorime,TraerPublicacionesPorUsuarios} from '../types/publicacionesTypes'
-import * as usuariosTypes from '../types/usuariosTypes';
+import {AmenoDorime,TraerPublicacionesPorUsuarios} from '../types/publicacionesTypes';
+import  {TraerUsuarios} from '../types/usuariosTypes';
 
-const {TraerUsuarios:usuarios_traer_todos}=usuariosTypes
+
 export const getUsuarioPublicaciones =(key)=>async(dispatch, getState)=>{
  try {
     let  { usuarios } = getState().usuariosReducer;
@@ -25,11 +25,13 @@ export const getUsuarioPublicaciones =(key)=>async(dispatch, getState)=>{
 		publicaciones_key
 	}
     console.log(`llegamos aca :${publicaciones_key}`);
-    
+  
 
     dispatch({
-        type:'usuarios_traer_todos',
+        type:'TraerUsuarios',
+        isLoaded:true,
         payload:usuarios_actualizados
+
 
     })
         if (res.status===200 && res.ok===true){
