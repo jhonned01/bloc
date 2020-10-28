@@ -41,9 +41,20 @@ export const getUsuarioPublicaciones =(key)=>async(dispatch, getState)=>{
                 isLoaded:true,
                 payload:publicacionesActualizadas
             })
+    }else {
+        dispatch({
+            type:'AmenoDorime',
+            payload:(`Error:${res.status}`)
+
+        })
     }
      
  } catch (error) {
+    dispatch({
+        type:'AmenoDorime',
+        payload: 'Algo salió mal, intente más tarde'
+    })
+
      
  }
 }

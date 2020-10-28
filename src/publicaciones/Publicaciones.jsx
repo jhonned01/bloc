@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react'
 import { connect } from 'react-redux'
-import Cargando from '../component/Loading/Loading.jsx'
+import Loading from '../component/Loading/Loading.jsx'
 import Fatal from '../component/Error/Fatal.jsx'
 
 import *as usuariosActions from '../actions/usuariosActions'
@@ -16,6 +16,7 @@ function Publicaciones(props) {
        }
     
      console.log(`estado de publiaciones reducer ${props.publicacionesReducer.publicaciones.length}`);
+
        if(!props.publicacionesReducer.publicaciones.length){
        await props.getUsuarioPublicaciones(props.match.params.key)
        
@@ -40,13 +41,27 @@ function Publicaciones(props) {
     }
 
 
-    return(
+    if (props.usuariosReducer.error) {
+        return(
+        <Fatal mensaje={props.usuariosReducer.error}/>
+        )
         
-    <div>
-        <h1>Publicaciones de {props.usuariosReducer.usuarios.name}</h1>
-        {props.match.params.key}
-        </div>
-    )
+    }else if (!props.usuariosReducer.isLoaded) {
+        return(        
+            <Loading/>       
+        )
+    }
+    else if(!props.usuariosReducer.error && props.usuariosReducer.isLoaded && props.usuariosReducer.usuarios.length>1){
+        return(
+        
+            <div>
+                <h1>Publicaciones de {props.usuariosReducer.usuarios.name}</h1>
+                {props.match.params.key}
+            </div>
+            )    
+        }
+    
+   
     
 }
 const mapStateToProps=({usuariosReducer,publicacionesReducer})=>{
