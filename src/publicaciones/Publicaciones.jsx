@@ -28,15 +28,18 @@ function Publicaciones(props) {
     
     
         
-    }
+        }
       
    }    
     useEffect(()=>{
         
     acciones()
+   
     },[])
    
     console.log(props);
+
+   
   
     if (props.usuariosReducer.error) {
         return(
@@ -50,16 +53,13 @@ function Publicaciones(props) {
     }
     else if(!props.usuariosReducer.error && props.usuariosReducer.isLoaded && props.usuariosReducer.usuarios.length>1){
         return(
-        
-            // <div>
-            //     <h1>Publicaciones de {props.usuariosReducer.usuarios[props.match.params.key].name}</h1>
-            //     {props.match.params.key}
-
-            //     <ShowPublicaciones/>
-            // </div>
-            <ShowPublicaciones />
-            )    
-        }
+         <div>
+             
+             <ShowPublicaciones prueba_key={props.match.params.key}/>
+         </div>
+        )
+    
+    }
     
    
     
