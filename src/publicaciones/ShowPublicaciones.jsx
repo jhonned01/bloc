@@ -49,11 +49,14 @@ const ShowPublicaciones = (props) => {
 	   
 	   )
    }
+   const abrirCerrar=()=>{
+console.log("holi");
+   }
 
     const showComments=(publicaciones,pub_key)=>(
 
 		publicaciones.map((publicacion)=>(
-			<div key={publicacion.id} onClick={()=>props.abrirCerrar()} className="pub_titulo">				
+			<div key={publicacion.id} onClick={()=>abrirCerrar()} className="pub_titulo">				
 			<h2>
 				{publicacion.title}
 			</h2>
@@ -84,7 +87,7 @@ const mapStateToProps = ({usuariosReducer,publicacionesReducer}) => ({
 const mapDispatchToProps = {
     ...usuariosActions,
 	...publicacionesActions,
-	...abrirCerrar
+	
 	
 	
 }
