@@ -42,9 +42,18 @@ const ShowPublicaciones = (props) => {
 	   const {publicaciones_key}= usuarios[props.prueba_key]
 
 	   return(
+	   showComments(
+		publicaciones[publicaciones_key],
+		publicaciones_key
+	   )
 	   
-	   publicaciones[publicaciones_key].map((publicacion)=>(
-			<div key={publicacion.id} onClick={()=>alert(publicacion.id)} className="Publicaciones">				
+	   )
+   }
+
+    const showComments=(publicaciones,pub_key)=>(
+
+		publicaciones.map((publicacion)=>(
+			<div key={publicacion.id} onClick={()=>props.abrirCerrar()} className="pub_titulo">				
 			<h2>
 				{publicacion.title}
 			</h2>
@@ -53,10 +62,7 @@ const ShowPublicaciones = (props) => {
 			</h3>
 			</div>
 	  	 ))
-	   )
-   }
-  
-     
+	)
     
     return(
         <div >
@@ -77,7 +83,10 @@ const mapStateToProps = ({usuariosReducer,publicacionesReducer}) => ({
 
 const mapDispatchToProps = {
     ...usuariosActions,
-    ...publicacionesActions
+	...publicacionesActions,
+	...abrirCerrar
+	
+	
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowPublicaciones)

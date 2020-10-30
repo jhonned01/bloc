@@ -13,10 +13,23 @@ export const getUsuarioPublicaciones =(key)=>async(dispatch, getState)=>{
     const res = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${usuario_id}`)
     const publicacionesUsuarios=await res.json()
 
+    const nuevas=publicacionesUsuarios.map((publicacion)=>({
+        ...publicacion,
+        comentarios:[],
+        abierto:false
+
+    }))
+
     const publicacionesActualizadas=[
     ...publicaciones,
-    publicacionesUsuarios
+        nuevas
     ];
+    if (res.status===200 && res.ok===true){
+    dispatch({
+        type:'TraerPublicacionesPorUsuarios',
+        isLoaded:true,
+        payload:publicacionesActualizadas
+    })
 
     const publicaciones_key=publicacionesActualizadas.length-1
     const usuarios_actualizados = [...usuarios];
@@ -26,6 +39,8 @@ export const getUsuarioPublicaciones =(key)=>async(dispatch, getState)=>{
 	}
     console.log(`llegamos aca :${publicaciones_key}`);
   
+   
+       
 
     dispatch({
         type:'TraerUsuarios',
@@ -34,17 +49,11 @@ export const getUsuarioPublicaciones =(key)=>async(dispatch, getState)=>{
 
 
     })
-        if (res.status===200 && res.ok===true){
-            
-            dispatch({
-                type:'TraerPublicacionesPorUsuarios',
-                isLoaded:true,
-                payload:publicacionesActualizadas
-            })
+  
     }else {
         dispatch({
             type:'AmenoDorime',
-            payload:(`Error:${res.status}`)
+            payload:(`Informacion de Publicaciones no disponible:${res.status}`)
 
         })
     }
@@ -54,7 +63,10 @@ export const getUsuarioPublicaciones =(key)=>async(dispatch, getState)=>{
         type:'AmenoDorime',
         payload: 'Algo salió mal, intente más tarde'
     })
-
-     
  }
 }
+
+
+export const abrirCerrar=()=>()=>(
+    alert('hola')
+)

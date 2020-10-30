@@ -17,7 +17,7 @@ export const traerTodos=()=> async(dispatch)=> {
           } else {
               dispatch({
                   type:'AmenoDorime',
-                  payload:(`Error:${res.status}`)
+                  payload:(`Informacion de usuarios no disponible:${res.status}`)
 
               })
           }
@@ -36,5 +36,9 @@ export const traerTodos=()=> async(dispatch)=> {
   
    
     
+}
+
+export const abrirCerrar=()=>()=>{
+    alert('hola')
 }
 
