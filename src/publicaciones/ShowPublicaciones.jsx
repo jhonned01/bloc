@@ -1,17 +1,19 @@
 import React,{useEffect} from 'react'
 import { connect } from 'react-redux'
-import *as usuariosActions from '../actions/publiacionesActions'
-import *as  publicacionesActions from '../actions/usuariosActions'
+import *as usuariosActions from '../actions/usuariosActions'
+import *as  publicacionesActions from '../actions/publiacionesActions'
 import Fatal from '../component/Error/Fatal.jsx'
 import Loading from '../component/Loading/Loading.jsx'
+import Comentarios from '../publicaciones/Comentarios.jsx'
 
-
+const { traerTodos: usuariosTraerTodos } = usuariosActions;
+const {
+	getUsuarioPublicaciones,
+	abrirCerrar,
+	traerComentarios,
+} = publicacionesActions;
 
 const ShowPublicaciones = (props) => {
-    
-    
-
-
 
     const actions= ()=>{
        const  {
@@ -49,23 +51,38 @@ const ShowPublicaciones = (props) => {
 	   
 	   )
    }
-   const abrirCerrar=()=>{
-console.log("holi");
-   }
+
 
     const showComments=(publicaciones,pub_key)=>(
 
-		publicaciones.map((publicacion)=>(
-			<div key={publicacion.id} onClick={()=>abrirCerrar()} className="pub_titulo">				
+		publicaciones.map((publicacion,com_key)=>(
+			<div key={publicacion.id} className="pub_titulo"
+			onClick={()=>mostrarComentarios(pub_key, com_key,publicacion.comentarios)}
+			>				
 			<h2>
 				{publicacion.title}
 			</h2>
 			<h3>
 				{publicacion.body}
 			</h3>
+			{
+				(publicacion.abierto)? <Comentarios comentarios={publicacion.comentarios}/> : ''
+			}
 			</div>
 	  	 ))
 	)
+
+
+	const mostrarComentarios =(pub_key, com_key,comentarios)=>{
+		console.log('====================================');
+		console.log('comentarios');
+		console.log('====================================');
+		props.abrirCerrar(pub_key, com_key);
+		if (!comentarios.length) {
+			props.traerComentarios(pub_key, com_key)
+		}
+		
+	}
     
     return(
         <div >
@@ -85,10 +102,10 @@ const mapStateToProps = ({usuariosReducer,publicacionesReducer}) => ({
 })
 
 const mapDispatchToProps = {
-    ...usuariosActions,
-	...publicacionesActions,
-	
-	
+	usuariosTraerTodos,
+	getUsuarioPublicaciones,
+	abrirCerrar,
+	traerComentarios,
 	
 }
 

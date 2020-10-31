@@ -67,6 +67,58 @@ export const getUsuarioPublicaciones =(key)=>async(dispatch, getState)=>{
 }
 
 
-export const abrirCerrar=()=>()=>(
-    alert('hola')
-)
+export const abrirCerrar =(pub_key, com_key)=>(dispatch,getState)=>{
+const { publicaciones } = getState().publicacionesReducer
+const seleccionada = publicaciones[pub_key][com_key]
+
+const actualziada ={
+    ...seleccionada,
+    abierto: !seleccionada.abierto
+    }
+
+const publicaciones_actualizadas=[...publicaciones]
+    publicaciones_actualizadas[pub_key]=[
+        ...publicaciones[pub_key]
+    ]
+
+    publicaciones_actualizadas[pub_key][com_key]=actualziada
+
+    dispatch({
+        type:'TraerPublicacionesPorUsuarios',
+        isLoaded:true,
+        payload:publicaciones_actualizadas
+    })
+
+}
+
+
+export const traerComentarios=(pub_key,com_key)=>async(dispatch,getState)=>{
+    
+ 
+    try {
+        const {publicaciones}=getState().publicacionesReducer;
+        const seleccionada =publicaciones[pub_key][com_key]
+        const res = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${seleccionada.id}`)
+        const comentariosData=await res.json()
+        
+        const actualziada={
+            ...seleccionada,
+            comentarios:comentariosData
+        }
+
+        const publicaciones_actualizadas=[...publicaciones]
+        publicaciones_actualizadas[pub_key]=[
+            ...publicaciones[pub_key]
+        ]
+
+        publicaciones_actualizadas[pub_key][com_key]= actualziada
+        dispatch({
+            type:'TraerPublicacionesPorUsuarios',
+            isLoaded:true,
+            payload:publicaciones_actualizadas
+        })
+    } catch (error) {
+        
+    }
+}
+
