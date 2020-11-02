@@ -54,7 +54,7 @@ function Publicaciones(props) {
     else if(!props.usuariosReducer.error && props.usuariosReducer.isLoaded && props.usuariosReducer.usuarios.length>1){
         return(
          <div>
-             <h1>{props.usuariosReducer.usuarios[props.match.params.key].name}</h1>
+             <h1>Publicaciones de :{props.usuariosReducer.usuarios[props.match.params.key].name}</h1>
              <ShowPublicaciones prueba_key={props.match.params.key}/>
          </div>
         )

@@ -1,4 +1,4 @@
-import {AmenoDorime,TraerPublicacionesPorUsuarios,comIsLoaded} from '../types/publicacionesTypes';
+import {AmenoDorime,TraerPublicacionesPorUsuarios,comIsLoaded,comError} from '../types/publicacionesTypes';
 import  {TraerUsuarios} from '../types/usuariosTypes';
 
 
@@ -126,8 +126,12 @@ export const traerComentarios=(pub_key,com_key)=>async(dispatch,getState)=>{
 
     }else{
         dispatch({
-            type:'AmenoDorime',
-            payload:(`Informacion de Comentarios no disponible:${res.status}`)
+            type:'comIsLoaded',         
+            payload:true
+        })
+        dispatch({
+            type:'comError',
+            payload:(`Informacion del Comentario no disponible:${res.status}`)
 
         })
 

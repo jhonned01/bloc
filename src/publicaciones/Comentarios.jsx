@@ -5,7 +5,7 @@ import *as usuariosActions from '../actions/usuariosActions'
 import *as publicacionesActions from '../actions/publiacionesActions'
 
 import Loading from '../component/Loading/Loading.jsx'
-import Error from '../component/Error/Fatal.jsx'
+import Fatal from '../component/Error/Fatal.jsx'
 
 
 const {traerTodos:usuariosTraerTodos}=usuariosActions
@@ -20,8 +20,13 @@ const Comentarios = (props) => {
 
    
     const ponerComentarios=()=>{
+        if(props.publicacionesReducer.comError){
+            return(
+                <Fatal mensaje={props.publicacionesReducer.comError}/>
+            )
+        }
 
-        if(!props.publicacionesReducer.comIsLoaded){
+        if(!props.publicacionesReducer.comIsLoaded && !props.comentarios.length){
             console.log('====================================');
             console.log(`puto cargando ${props.publicacionesReducer.comIsLoaded}`);
             console.log('====================================');
@@ -29,32 +34,35 @@ const Comentarios = (props) => {
             <Loading/>
             )
         }
-        return(
-   
        
-        props.comentarios.map((comentario)=>(
-            <li>
-                <b>
-                    <u>
-                        {comentario.email}
-                    </u>
+        if(!props.publicacionesReducer.comError && props.publicacionesReducer.comIsLoaded){
+
+        
+            return(
+    
+        
+                props.comentarios.map((comentario)=>(
+                    <li>
+                        <b>
+                            <u>
+                                {comentario.email}
+                            </u>
+                            
+                        </b>
+                        <br/>
+                        {comentario.body}
+                    </li>
                     
-                </b>
-                <br/>
-                {comentario.body}
-            </li>
-            
-        ))
-    )
+                ))
+            )
         }
+    }
 
     console.log('====================================')
     console.log(`com is loaded:${props.publicacionesReducer.comIsLoaded}`);
     console.log('====================================');
 
-            useEffect(() => {
-               
-            }, [])
+         
     
 
     return (

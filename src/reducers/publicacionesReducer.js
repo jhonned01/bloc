@@ -1,9 +1,10 @@
-import {TraerPublicacionesPorUsuarios,AmenoDorime,comIsLoaded} from '../types/publicacionesTypes'
+import {TraerPublicacionesPorUsuarios,AmenoDorime,comIsLoaded,comError} from '../types/publicacionesTypes'
 const INITIAL_STATE={
     publicaciones:[],
     isLoaded:false,
     error:null,
-    comIsLoaded:false
+    comIsLoaded:false,
+    comError:null
 }
 
 export default(state=INITIAL_STATE,action)=>{
@@ -24,6 +25,14 @@ switch (action.type) {
         return{...state,
         comIsLoaded:action.payload
         }
+        
+    case 'comError':
+    return{...state,
+        comError:action.payload
+    
+    }
+
+
 
     default:
         return state;
