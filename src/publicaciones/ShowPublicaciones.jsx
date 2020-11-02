@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import *as usuariosActions from '../actions/usuariosActions'
 import *as  publicacionesActions from '../actions/publiacionesActions'

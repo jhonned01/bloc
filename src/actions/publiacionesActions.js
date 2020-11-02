@@ -99,8 +99,9 @@ export const traerComentarios=(pub_key,com_key)=>async(dispatch,getState)=>{
         const {publicaciones}=getState().publicacionesReducer;
         const seleccionada =publicaciones[pub_key][com_key]
         const res = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${seleccionada.id}`)
-        const comentariosData=await res.json()
-        
+        if (res.status===200 && res.ok===true){
+
+        const comentariosData=await res.json()      
         const actualziada={
             ...seleccionada,
             comentarios:comentariosData
@@ -117,7 +118,12 @@ export const traerComentarios=(pub_key,com_key)=>async(dispatch,getState)=>{
             isLoaded:true,
             payload:publicaciones_actualizadas
         })
+    }
     } catch (error) {
+        dispatch({
+            type:'AmenoDorime',
+            payload: 'Algo salió mal, intente más tarde'
+        })
         
     }
 }
