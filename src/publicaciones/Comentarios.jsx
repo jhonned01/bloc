@@ -6,6 +6,8 @@ import *as publicacionesActions from '../actions/publiacionesActions'
 
 import Loading from '../component/Loading/Loading.jsx'
 import Error from '../component/Error/Fatal.jsx'
+
+
 const {traerTodos:usuariosTraerTodos}=usuariosActions
     
 const {
@@ -17,8 +19,19 @@ const {
 const Comentarios = (props) => {
 
    
-    const ponerComentarios=()=>(
-        
+    const ponerComentarios=()=>{
+
+        if(!props.publicacionesReducer.comIsLoaded){
+            console.log('====================================');
+            console.log(`puto cargando ${props.publicacionesReducer.comIsLoaded}`);
+            console.log('====================================');
+            return(
+            <Loading/>
+            )
+        }
+        return(
+   
+       
         props.comentarios.map((comentario)=>(
             <li>
                 <b>
@@ -33,6 +46,11 @@ const Comentarios = (props) => {
             
         ))
     )
+        }
+
+    console.log('====================================')
+    console.log(`com is loaded:${props.publicacionesReducer.comIsLoaded}`);
+    console.log('====================================');
 
             useEffect(() => {
                

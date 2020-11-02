@@ -20,6 +20,7 @@ switch (action.type) {
             error:action.payload}
 
     case 'comIsLoaded':
+        
         return{...state,
         comIsLoaded:action.payload
         }
