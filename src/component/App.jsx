@@ -5,14 +5,9 @@ import Usuarios from './usuarios/Usuarios.jsx'
 import './App.css'
 import Menu from './Menu.jsx'
 import Publicaciones from '../publicaciones/Publicaciones.jsx'
+import Tareas from './Tareas/Tareas.jsx'
 
-const Tareas=()=>{
-    return(
-        <div>
-            <p>Estas son las tareas</p>
-        </div>
-    )
-}
+
 
 const App =()=>{
 return(

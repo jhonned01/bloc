@@ -42,7 +42,7 @@ const Comentarios = (props) => {
     
         
                 props.comentarios.map((comentario)=>(
-                    <li>
+                    <li key={comentario.id}>
                         <b>
                             <u>
                                 {comentario.email}

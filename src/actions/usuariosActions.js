@@ -4,9 +4,10 @@ export const traerTodos=()=> async(dispatch)=> {
     
    try {
     const res = await fetch('https://jsonplaceholder.typicode.com/users')
-    const  data = await res.json()
+    
     // console.log(`est es un status${res.status} ${res.ok}`);
           if (res.status === 200 && res.ok===true ) {
+            const  data = await res.json()
             dispatch({
                 type:'TraerUsuarios',
                 isLoaded:true,
@@ -29,12 +30,8 @@ export const traerTodos=()=> async(dispatch)=> {
             type:'AmenoDorime',
             payload: 'Algo salió mal, intente más tarde'
         })
-    
        
    }
-    
-  
-   
-    
+ 
 }
 

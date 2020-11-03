@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import *as usuariosActions from '../actions/usuariosActions'
-import *as  publicacionesActions from '../actions/publiacionesActions'
+import *as publicacionesActions from '../actions/publiacionesActions'
 import Fatal from '../component/Error/Fatal.jsx'
 import Loading from '../component/Loading/Loading.jsx'
 import Comentarios from '../publicaciones/Comentarios.jsx'
