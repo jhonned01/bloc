@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { connect } from 'react-redux'
 import *as tareasActions from '../../actions/tareasActions'
 import Loading from '../Loading/Loading.jsx'
@@ -6,7 +6,18 @@ import Fatal from '../Error/Fatal.jsx'
 
  const SaveTareas = (props) => {
     // const {cambioUsiarioId,cambioTitulo}=tareasActions
-    
+    function validacion() {
+        if(!Object.keys(props.tareasReducer.tareas).length){
+            props.getTareas()
+        }
+    }
+    useEffect(() => {
+        
+            validacion()
+            
+      
+        
+    }, [])
    
   
     const cambioUsiarioId=(event)=>{
@@ -40,25 +51,22 @@ import Fatal from '../Error/Fatal.jsx'
     }
     return false
 }
-// console.log('====================================');
-// console.log(`xd;${props.tareasReducer.tutulo}`);
-// console.log('====================================');
 
-//  const mostrarAccion=()=>{
-//     const {error,isLoaded}=props.tareasReducer
-//     if (error){
-//         return(
-//             <Fatal mensaje={error}/>
-//         )
-//     }
+ const mostrarAccion=()=>{
+    const {error,isLoaded}=props.tareasReducer
+    if (error){
+        return(
+            <Fatal mensaje={error}/>
+        )
+    }
     
-//     if (!isLoaded) {
-//         return (
-//             <Loading/>
-//         )
-//     }
+    if (!isLoaded) {
+        return (
+            <Loading/>
+        )
+    }
     
-// }
+}
 
     return (
         <div>
@@ -78,7 +86,7 @@ import Fatal from '../Error/Fatal.jsx'
             >
             Guardar
             </button>
-            {/* {mostrarAccion()} */}
+            {mostrarAccion()}
            
         </div>
     )

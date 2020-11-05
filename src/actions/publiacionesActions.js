@@ -96,6 +96,10 @@ export const traerComentarios=(pub_key,com_key)=>async(dispatch,getState)=>{
     
  
     try {
+        dispatch({
+            type:'comIsLoaded',         
+            payload:false
+        })
         const {publicaciones}=getState().publicacionesReducer;
         const seleccionada =publicaciones[pub_key][com_key]
         const res = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${seleccionada.id}`)

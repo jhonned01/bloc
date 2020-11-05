@@ -53,9 +53,6 @@ export const cambioUsiarioId=(usuario_id)=>(dispatch)=>{
 }
 
 export const cambioTitulo=(titulo)=>(dispatch)=>{
-    console.log('====================================');
-    console.log(titulo);
-    console.log('====================================');
     dispatch({
         type:'cambio_titulo',
         payload:titulo
@@ -66,6 +63,11 @@ export const agregar =(nueva_tarea)=> async(dispatch)=>{
 
   
     try {
+        dispatch({
+            type:'LoadinTareas',
+            payload:false
+        })
+
        const res=await fetch('https://jsonplaceholder.typicode.com/todos',{
             method: 'POST',
             body: JSON.stringify(nueva_tarea),
@@ -74,7 +76,6 @@ export const agregar =(nueva_tarea)=> async(dispatch)=>{
             }
         })
 
-        
             const respuesta=await res.json()
             console.log(respuesta);
             
@@ -84,7 +85,7 @@ export const agregar =(nueva_tarea)=> async(dispatch)=>{
             type:'LoadinTareas',
             payload:true
         })
-        
+   
         
     } catch (error) {
         dispatch({
