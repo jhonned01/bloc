@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import *as tareasActions from '../../actions/tareasActions'
 import Loading from '../Loading/Loading.jsx'
 import Fatal from '../Error/Fatal.jsx' 
@@ -9,45 +10,34 @@ import Fatal from '../Error/Fatal.jsx'
 
  const Tareas = (props) => {
   
+    useEffect(() => {
+        if (!Object.keys(props.tareasReducer.tareas).length){
+            props.getTareas()
+        }
+        
+        
+    }, [])
 
-// const validacionTareas=async()=>{
-//     if (!props.tareasReducer.tareas.length) {
-//         await props.getTareas()
-//         console.log('no existian los usuarios');
-//     }
-
-// }
-
-console.log('====================================');
-console.log(props);
-console.log('====================================');
-
-
-useEffect(() => {
-    props.getTareas()
+    const mostrarContenido=()=>{
+       const {tareas,isLoaded,error}=props.tareasReducer
+        if(error){
+            return(
+                <Fatal mensaje={error}/>
+            )
+        }
     
-}, [])
-
-const mostrarContenido=()=>{
-    const {tareas,isLoaded,error}=props.tareasReducer
-    if(error){
-        return(
-            <Fatal mensaje={error}/>
-        )
-    }
-  
-    if(!isLoaded){
-        return(
-            <Loading />
-        )
-    }
+        if(!isLoaded){
+            return(
+                <Loading />
+            )
+        }
 
     return Object.keys(tareas).map((usu_id)=>(
         <div key={usu_id}>
             <h2>
                 usuario:{usu_id}
             </h2>
-            <div className="contenerdor_tareas">
+            <div className="contenedor_tareas">
                 {ponertareas(usu_id)}
             </div>
         </div>
@@ -76,6 +66,11 @@ const mostrarContenido=()=>{
 
     return (
         <div>
+            <button>
+                 <Link to='/tareas/guardar'>
+                     Guardar
+                 </Link>
+            </button>
             {mostrarContenido()} 
         </div>
     )
