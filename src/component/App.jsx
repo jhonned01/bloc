@@ -19,6 +19,7 @@ return(
                 <Route exact path='/tareas' component={Tareas}/>
                 <Route exact path='/publicaciones/:key' component={Publicaciones}/>
                 <Route exact path='/tareas/guardar' component={GuardarTareas} /> 
+                <Route exact path='/tareas/guardar/:usu_id/:tar_id' component={GuardarTareas} />
             </div>
           </BrowserRouter>
 )

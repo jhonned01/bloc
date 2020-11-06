@@ -3,23 +3,25 @@ import { connect } from 'react-redux'
 import *as tareasActions from '../../actions/tareasActions'
 import Loading from '../Loading/Loading.jsx'
 import Fatal from '../Error/Fatal.jsx'
+import {Redirect} from 'react-router-dom'
 
  const SaveTareas = (props) => {
     // const {cambioUsiarioId,cambioTitulo}=tareasActions
+    useEffect(() => {
+        
+        validacion()
+        EditarTarea()
+  
+    
+}, [])
+
     function validacion() {
         if(!Object.keys(props.tareasReducer.tareas).length){
             props.getTareas()
         }
     }
-    useEffect(() => {
-        
-            validacion()
-            
-      
-        
-    }, [])
-   
-  
+
+
     const cambioUsiarioId=(event)=>{
         props.cambioUsiarioId(event.target.value)
     }
@@ -27,6 +29,9 @@ import Fatal from '../Error/Fatal.jsx'
     const cambioTitulo=(event)=>{
         props.cambioTitulo(event.target.value)
     }
+  
+
+  
    const btn_save =()=>{
       
        const {usuario_id, titulo}=props.tareasReducer
@@ -36,8 +41,20 @@ import Fatal from '../Error/Fatal.jsx'
         title: titulo,
         completed: false
     };
-     
-    props.agregar(nueva_tarea)
+    const {usu_id,tar_id}=props.match.params
+    
+    if(usu_id && tar_id){
+        const tarea = props.tareasReducer.tareas[usu_id][tar_id];
+     const tareaEditada={
+         ...nueva_tarea,
+         completed:tarea.completed,
+         id:tarea.id
+     }
+        props.editar(tareaEditada)
+        }else{
+            props.agregar(nueva_tarea)
+        }
+   
    }
 
    const deshabilitar=()=>{
@@ -67,9 +84,32 @@ import Fatal from '../Error/Fatal.jsx'
     }
     
 }
+console.log('====================================');
+console.log(props.tareasReducer.regresar);
+console.log('====================================');
+
+function EditarTarea() {
+    const {usu_id,tar_id}=props.match.params
+    
+    if(usu_id && tar_id){
+        
+        const tarea = props.tareasReducer.tareas[usu_id][tar_id];
+       
+       
+        
+        props.cambioUsiarioId(tarea.userId);
+        props.cambioTitulo(tarea.title);
+    }
+}
 
     return (
         <div>
+            {
+                (props.tareasReducer.regresar)?
+                <Redirect to='/tareas/'/>:
+                ''
+
+            }
             <h1>Guardar Tarea</h1>
             usuario id:
             <input type="number" value={props.tareasReducer.usuario_is} name="" 
